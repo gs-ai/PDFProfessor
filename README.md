@@ -1,9 +1,4 @@
 ```markdown
-<!-- 
-  NOTE: GitHub Flavored Markdown doesn't allow custom background colors or
-  neon outlines, but we can still craft a sharp, bold, and "dark manly" vibe
-  using ASCII lines. Here's a sleeker layout with consistent styling.
--->
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                       PDF PROFESSOR 1.0                       ┃
