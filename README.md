@@ -1,32 +1,18 @@
-'''markdown
-# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# ┃                       PDF PROFESSOR 1.0                       ┃
-# ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-# ┃ A robust pipeline for extracting PDF content, chunking text,  ┃
-# ┃ and training an Ollama model using your custom prompt.        ┃
-# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# PDF PROFESSOR 1.0
 
----
-'''
+## Overview
 
-## ━━ OVERVIEW ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**PDF Professor 1.0** extracts text from PDFs using **PyMuPDF** (with a **Poppler** fallback), then processes the text in chunks through an Ollama model using a user-defined prompt. This makes it ideal for summarization, data extraction, and text analysis.
 
-**PDF Professor 1.0** extracts text from PDFs using **PyMuPDF** (with a **Poppler** fallback), then breaks the text into manageable chunks. Each chunk is processed by an Ollama model command, **guided by your prompt** at runtime—ideal for summarizing, extracting insights, or any specialized text manipulation.
+### Key Features:
+- **Text Extraction & Chunking** – Efficiently processes large PDFs into manageable sections.
+- **Custom Prompt Processing** – Guides the Ollama model dynamically with your input.
+- **Logging & Resume Support** – Tracks progress to continue where it left off.
+- **Timeout & Concurrency Control** – Optimizes performance by adjusting processing limits.
 
-Key highlights:
+## Configuration
 
-- **Chunking & Logging**  
-  Splits large documents into smaller pieces and logs progress for easy resumption.  
-- **Custom Prompt**  
-  Dynamically control how each chunk is processed by the Ollama model.  
-- **Timeout & Concurrency**  
-  Prevent overload by tuning the number of threads and the processing timeout.
-
----
-
-## ━━ CONFIGURATION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-All settings are stored in `config.json`. Example:
+All settings are stored in `config.json`:
 
 ```json
 {
@@ -39,25 +25,23 @@ All settings are stored in `config.json`. Example:
 }
 ```
 
-| Key                         | Description                                             |
-|-----------------------------|---------------------------------------------------------|
-| **pdf_directory**           | Folder containing your PDF files                       |
-| **output_directory**        | Where combined processed scripts will be saved         |
-| **log_directory**           | Stores logs for progress and errors                    |
-| **chunk_storage_directory** | Directory for individual chunk outputs                 |
-| **ollama_command**          | Command & arguments to run your Ollama model           |
-| **chunk_size**              | Characters per chunk before splitting                  |
+| Key                         | Description                                     |
+|-----------------------------|-------------------------------------------------|
+| **pdf_directory**           | Folder containing PDF files                     |
+| **output_directory**        | Where processed scripts are saved               |
+| **log_directory**           | Logs progress and errors                        |
+| **chunk_storage_directory** | Stores individual chunk outputs                 |
+| **ollama_command**          | Defines how Ollama runs                         |
+| **chunk_size**              | Number of characters per chunk                  |
 
----
-
-## ━━ INSTALLATION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Installation
 
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/YourUsername/PDF-Professor.git
    cd PDF-Professor
    ```
-2. **Set Up a Conda Environment**
+2. **Set Up Environment**
    ```bash
    conda create -n pdfprofessorENV python=3.10
    conda activate pdfprofessorENV
@@ -67,27 +51,21 @@ All settings are stored in `config.json`. Example:
    pip install -r requirements.txt
    ```
 
----
-
-## ━━ USAGE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Usage
 
 1. **Run the Program**
    ```bash
    python pdfprofessor.py
    ```
-2. **Enter Your Prompt** when prompted (no quotes needed):
+2. **Enter Your Prompt**
    ```
-   Enter your prompt for Ollama: Summarize each section and list page numbers.
+   Enter your prompt for Ollama: Summarize key points.
    ```
 3. **Processing & Output**
-   - Splits each PDF in `pdf_directory` into smaller text chunks.  
-   - Sends each chunk to the Ollama model with your **prompt**.  
-   - Saves processed chunks to `ProcessedChunks` and a combined script to `Scripts`.  
-   - Trains the Ollama model on the merged content.
+   - Chunks PDFs and processes them via Ollama.
+   - Saves processed content in `ProcessedChunks` and combined scripts in `Scripts`.
 
----
-
-## ━━ FILE STRUCTURE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## File Structure
 
 ```plaintext
 PDF-Professor/
@@ -95,41 +73,18 @@ PDF-Professor/
 ├── config.json                  # Configuration file
 ├── requirements.txt             # Dependencies
 ├── PDF/                         # Source PDFs
-├── Logs/                        # Logs (progress, errors)
-├── ProcessedChunks/             # Individual chunk outputs
-└── Scripts/                     # Final processed scripts
+├── Logs/                        # Logs
+├── ProcessedChunks/             # Chunk outputs
+└── Scripts/                     # Final scripts
 ```
 
----
+## Troubleshooting
 
-## ━━ KEY FEATURES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- **Timeout Errors** – Increase timeout settings.
+- **Slow Performance** – Reduce chunk size or adjust concurrency.
+- **Model Choice** – Use a smaller Ollama model if needed.
 
-- **Flexible Prompt Input**  
-  Instantly shift tasks: summarization, data extraction, Q&A, etc.  
-- **Timeout & Concurrency Control**  
-  Adjust thread usage (`max_workers`) and timeouts to prevent slowdowns.  
-- **Resume Support**  
-  Picks up where it left off if the process is interrupted.  
-- **Fallback PDF Parsing**  
-  Automatically switches to `pdftotext` if PyMuPDF fails.
-
----
-
-## ━━ TROUBLESHOOTING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-- **Timeout Errors**  
-  Increase `timeout` in both `process_with_ollama` and `train_ollama_model`.  
-- **Slow Performance**  
-  Use smaller chunks (e.g., 500–1000 chars) or reduce concurrency.  
-- **Model Choice**  
-  If `wizardlm2:7b` is too heavy, consider a smaller Ollama model.
-
----
-
-## ━━ LICENSE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## License
 
 This project is available under the [MIT License](LICENSE). Contributions are welcome!
 
----
-
-**PDF Professor 1.0** – *Streamlined PDF text processing with the power of your prompt.*  
