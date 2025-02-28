@@ -1,4 +1,3 @@
-```markdown
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                       PDF PROFESSOR 1.0                       ┃
@@ -133,4 +132,3 @@ This project is available under the [MIT License](LICENSE). Contributions are we
 ---
 
 **PDF Professor 1.0** – *Streamlined PDF text processing with the power of your prompt.*  
-```
