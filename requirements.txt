@@ -1,0 +1,5 @@
+pymupdf
+pytesseract
+pdf2image
+tqdm
+beautifulsoup4

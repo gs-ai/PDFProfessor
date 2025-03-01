@@ -1,0 +1,8 @@
+{
+    "pdf_directory": "PDF",
+    "output_directory": "Scripts",
+    "log_directory": "Logs",
+    "chunk_storage_directory": "ProcessedChunks",
+    "ollama_command": ["ollama", "run", "wizardlm2:7b"],
+    "chunk_size": 2000
+}
