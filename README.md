@@ -1,6 +1,8 @@
 ![PDF Professor Logo](80f7bd26-6e6a-4236-abf0-6f1418250f99.png)
 
 # PDF Professor 2.0
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 
 ## Overview
 
@@ -127,6 +129,16 @@ Enter your prompt for Ollama: Summarize key points.
    ```bash
    ollama run <model-name>
    ```
+
+---
+
+## Contributing
+
+Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Code of Conduct
+
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md) to foster an open and welcoming environment.
 
 ---
 
