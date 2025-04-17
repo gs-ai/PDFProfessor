@@ -1,22 +1,53 @@
-# PDF PROFESSOR 1.0
+![PDF Professor Logo](80f7bd26-6e6a-4236-abf0-6f1418250f99.png)
+
+# PDF Professor 1.0
 
 ## Overview
 
-**PDF Professor 1.0** extracts text from PDFs using **PyMuPDF** (with a **Poppler** fallback), then processes the text in chunks through an Ollama model using a user-defined prompt. This makes it ideal for summarization, data extraction, and text analysis.
-
-### Key Features:
-- **Text Extraction & Chunking** – Efficiently processes large PDFs into manageable sections.
-- **Custom Prompt Processing** – Guides the Ollama model dynamically with your input.
-- **Logging & Resume Support** – Tracks progress to continue where it left off.
-- **Timeout & Concurrency Control** – Optimizes performance by adjusting processing limits.
+**PDF Professor 1.0** is a robust, automated pipeline for extracting, processing, and analyzing text from PDF documents using advanced AI models. Designed for professionals in research, legal, cybersecurity, and investigative domains, PDF Professor streamlines the transformation of unstructured PDF data into actionable, structured intelligence.
 
 ---
+
+## Key Features
+
+- **Automated PDF Text Extraction:** Utilizes PyMuPDF for high-fidelity text extraction, with Poppler as a fallback for maximum compatibility.
+- **Intelligent Chunking:** Splits large documents into manageable, user-configurable text chunks for efficient processing.
+- **AI-Powered Processing:** Integrates with Ollama to process each chunk using state-of-the-art large language models (LLMs) and custom user prompts.
+- **Custom Prompt Support:** Accepts dynamic prompts, enabling tailored analysis such as summarization, entity extraction, legal review, or threat intelligence.
+- **Progress Logging & Resume:** Maintains a detailed log of processing progress, allowing seamless resumption after interruptions.
+- **Concurrent Processing:** Supports multi-threaded execution for efficient handling of multiple documents.
+- **Output Management:** Aggregates processed results into comprehensive script files, with optional per-chunk storage for granular review.
+- **Model Training Integration:** Optionally sends processed content back to the LLM for incremental training or fine-tuning.
+
+---
+
+## How It Works
+
+1. **Configuration:**
+   - All settings (directories, chunk size, model command) are managed in `config.json` for easy customization.
+2. **PDF Discovery:**
+   - Scans the specified input directory for PDF files.
+3. **Progress Tracking:**
+   - Loads a progress log to resume processing from the last completed chunk for each PDF.
+4. **Text Extraction:**
+   - Extracts text from each PDF using PyMuPDF, with Poppler as a fallback.
+5. **Chunking:**
+   - Splits extracted text into chunks based on the configured size.
+6. **AI Processing:**
+   - Sends each chunk, along with the user’s prompt, to the selected Ollama LLM for processing.
+7. **Logging & Output:**
+   - Updates the progress log after each chunk. Aggregates all processed chunks and saves the final output to the `Scripts` directory.
+8. **Optional Model Training:**
+   - Optionally sends the processed content to the LLM for further training.
+
+---
+
 ## Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YourUsername/PDF-Professor.git
-cd PDF-Professor
+git clone https://github.com/gs-ai/PDFProfessor.git
+cd PDFProfessor
 ```
 
 ### 2. Set Up Environment
@@ -31,9 +62,10 @@ pip install -r requirements.txt
 ```
 
 ---
+
 ## Configuration
 
-All settings are stored in `config.json`:
+Edit `config.json` to match your environment and preferences:
 
 ```json
 {
@@ -46,7 +78,15 @@ All settings are stored in `config.json`:
 }
 ```
 
+- **pdf_directory:** Directory containing source PDFs.
+- **output_directory:** Where final processed scripts are saved.
+- **log_directory:** Stores progress logs for resumability.
+- **chunk_storage_directory:** (Optional) For saving individual processed chunks.
+- **ollama_command:** Command to invoke the desired LLM via Ollama.
+- **chunk_size:** Number of characters per chunk.
+
 ---
+
 ## Usage
 
 ### 1. Run the Program
@@ -60,141 +100,80 @@ Enter your prompt for Ollama: Summarize key points.
 ```
 
 ### 3. Processing & Output
-- Chunks PDFs and processes them via Ollama.
-- Saves processed content in `ProcessedChunks` and combined scripts in `Scripts`.
+- The program will process all PDFs in the input directory, chunk by chunk.
+- Progress is displayed in real time and logged for resumption.
+- Final results are saved in the `Scripts` directory as timestamped script files.
 
 ---
+
 ## Model Selection & Setup
 
-### Recommended Models:
-- **WizardLM 2:7B** – Primary model optimized for deep text analysis.
-- **DeepSeek-R1:7B** – Ideal for case law reasoning and cybersecurity reports.
-- **Mistral or LLaMA 3.1** – Best for speed-focused processing of large PDF batches.
+### Recommended Models
+- **WizardLM 2:7B** – Deep text analysis and summarization.
+- **DeepSeek-R1:7B** – Legal, technical, and cybersecurity documents.
+- **Mistral, LLaMA 3.1** – Fast, general-purpose processing.
 
-### Changing Models:
-1. **Modify `config.json`**
-   - Locate the `ollama_command` setting and change the model name. Example:
-   
-   ```json
-   "ollama_command": ["ollama", "run", "deepseek-r1:7b"]
-   ```
-
-2. **Ensure the Model is Downloaded Locally**
+### Changing Models
+1. Edit `ollama_command` in `config.json` to specify your preferred model.
+2. Ensure the model is downloaded locally:
    ```bash
    ollama pull <model-name>
    ```
-   Example:
-   ```bash
-   ollama pull deepseek-r1:7b
-   ```
-
-3. **Verify Available Models**
+3. List available models:
    ```bash
    ollama list
    ```
-
-4. **Test Model Performance**
+4. Test model performance:
    ```bash
    ollama run <model-name>
    ```
-   Example:
-   ```bash
-   ollama run mistral:latest
-   ```
-
-Once the model is set in `config.json`, **restart** PDF Professor to apply the changes.
 
 ---
+
 ## File Structure
 
 ```plaintext
-PDF-Professor/
-├── pdfprofessor.py              # Main script
-├── config.json                  # Configuration file
-├── requirements.txt             # Dependencies
-├── PDF/                         # Source PDFs
-├── Logs/                        # Logs
-├── ProcessedChunks/             # Chunk outputs
-└── Scripts/                     # Final scripts
+PDFProfessor/
+├── 80f7bd26-6e6a-4236-abf0-6f1418250f99.png   # Logo
+├── pdfprofessor.py                            # Main script
+├── config.json                                # Configuration file
+├── requirements.txt                           # Dependencies
+├── prompt-list.txt                            # Example prompt list
+├── prompt-list-OUTSTANDING.txt                # Outstanding prompts
+├── PDF/                                       # Source PDFs
+├── Logs/                                      # Progress logs
+├── ProcessedChunks/                           # (Optional) Per-chunk outputs
+└── Scripts/                                   # Final processed scripts
 ```
 
 ---
-## Prompt List
 
-### OSINT & Investigations
-#### Fraud & Financial Crimes:
-- Identify and analyze patterns in fraud schemes, financial crimes, and risk assessment methodologies.
-- Detect and analyze trends in whistleblower disclosures related to fraud and misconduct.
-- Convert whistleblower testimonies or case disclosures into structured datasets for fraud detection and AI-assisted risk analysis.
-- Parse and analyze financial records, including bank statements and transaction histories, to detect anomalies and fraudulent activities.
-- Examine corporate and government financial reports to identify trends, discrepancies, and regulatory compliance issues.
+## Example Prompts
 
-#### Social Media & Misinformation:
-- Analyze patterns in social media misinformation campaigns and their impact.
-- Extract social media investigation techniques and categorize them by platform, methodology, and risk factors.
-- Identify and categorize social media manipulation tactics used in misinformation campaigns.
-- Identify references to AI-generated misinformation and structure them into datasets for detection and mitigation training.
-
-#### Surveillance & Intelligence Gathering:
-- Identify and categorize surveillance techniques used in corporate and law enforcement settings, including digital vs. physical methodologies.
-- Extract intelligence-gathering methodologies applicable to business investigations and OSINT.
-- Identify intelligence-gathering techniques used in OSINT investigations and legal contexts.
-- Categorize intelligence cycle references into collection, analysis, dissemination, and operational use.
-
-#### Case Studies & Incident Analysis:
-- Analyze crash reports to identify contributing factors, patterns, and potential liabilities.
-- Review and summarize incident reports to highlight key events, responsible parties, and procedural gaps.
-- Extract relevant statements from witness testimonies and analyze inconsistencies for case evaluation.
-- Parse case studies of past cyberattacks and summarize them as structured incident reports.
-- Identify trends and patterns in criminal behavior based on case study data.
-- Extract real-world OSINT case studies and format them for AI-assisted investigation workflows.
-
-### Legal
-#### Legal Analysis & Case Law:
-- Extract and structure legal statutes, case laws, and precedents for AI-driven legal analysis.
-- Identify and analyze patterns in legal case outcomes to predict case trajectories.
-- Analyze historical patterns in legal cases to determine causation and liability, identifying contributing factors and responsible parties.
-
-#### Witness & Evidence Analysis:
-- Identify recurring themes and inconsistencies in witness statements to assess reliability.
-- Examine, analyze, and detail inconsistencies in depositions and court transcripts.
-- List witnesses and categorize their statements based on relevance and reliability.
-- Organize legal evidence and testimonies for structured case-building.
-
-#### Regulatory & Compliance:
-- Extract all legal definitions, jurisdictional laws, and regulatory frameworks for different types of cybercrime.
-- Identify all data privacy laws and format them as structured training sets for compliance analysis.
-- Summarize all regulations on electronic surveillance and data retention laws across different jurisdictions.
-
-### Cybersecurity
-#### Threat Analysis & Incident Response:
-- Analyze patterns in cybersecurity incidents, including intrusion attempts and attack methodologies.
-- Analyze threat actors involved in ransomware and breach data attacks.
-- Parse the document for mentions of threat actors, hacking groups, or cybercriminal organizations and summarize their activities.
-- Summarize all incident response frameworks and standard operating procedures for AI-assisted cybersecurity training.
-
-#### Attack Vectors & Defenses:
-- Generate a structured list of attack vectors, defenses, and mitigation strategies.
-- Convert hacking methodologies and defense mechanisms into red team vs. blue team training sets.
-- Identify cybersecurity frameworks like NIST, ISO 27001, and CIS controls and format them into structured datasets.
-
-#### Insider Threats & Counterintelligence:
-- Extract and categorize all references to insider threats and mitigation strategies.
-- Extract all discussions on counterintelligence tactics and cyber deception strategies.
-
-#### Phishing & Misinformation:
-- Identify structured datasets related to phishing techniques and misinformation campaigns.
-- Extract structured datasets on phishing techniques, categorized by attack type and mitigation strategies.
+- Summarize the main arguments and conclusions.
+- Extract all legal statutes and case law references.
+- Identify cybersecurity incident response steps.
+- List all named entities and categorize them.
+- Convert whistleblower testimonies into structured datasets.
 
 ---
+
 ## Troubleshooting
 
-- **Timeout Errors** – Increase timeout settings.
-- **Slow Performance** – Reduce chunk size or adjust concurrency.
-- **Model Choice** – Use a smaller Ollama model if needed.
+- **Timeout Errors:** Increase the timeout in the code or reduce chunk size.
+- **Slow Performance:** Lower chunk size or concurrency settings.
+- **Model Issues:** Use a smaller or different Ollama model.
+- **Resume Support:** If interrupted, simply rerun the program; it will pick up where it left off.
 
 ---
+
 ## License
 
-This project is available under the [MIT License](LICENSE). Contributions are welcome!
+This project is licensed under the [MIT License](LICENSE). Contributions are welcome!
+
+---
+
+## Contact & Support
+
+For questions, feature requests, or support, please open an issue on [GitHub](https://github.com/gs-ai/PDFProfessor) or contact the maintainer directly.
 

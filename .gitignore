@@ -2,3 +2,7 @@ Logs/
 ProcessedChunks/
 Scripts/
 db_store/
+prompt-list.txt
+prompt-list-OUTSTANDING.txt
+PDF/
+.DS_Store
