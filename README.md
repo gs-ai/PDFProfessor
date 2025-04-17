@@ -1,10 +1,10 @@
 ![PDF Professor Logo](80f7bd26-6e6a-4236-abf0-6f1418250f99.png)
 
-# PDF Professor 1.0
+# PDF Professor 2.0
 
 ## Overview
 
-**PDF Professor 1.0** is a robust, automated pipeline for extracting, processing, and analyzing text from PDF documents using advanced AI models. Designed for professionals in research, legal, cybersecurity, and investigative domains, PDF Professor streamlines the transformation of unstructured PDF data into actionable, structured intelligence.
+**PDF Professor 2.0** is a robust, automated pipeline for extracting, processing, and analyzing text from PDF documents using advanced AI models. Designed for professionals in research, legal, cybersecurity, and investigative domains, PDF Professor streamlines the transformation of unstructured PDF data into actionable, structured intelligence.
 
 ---
 
